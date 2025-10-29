@@ -13,8 +13,8 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::factory()->make([
-            'email' => 'teste-user@admim.com.br',
+        $user = User::factory()->create([
+            'email' => 'test-user@admim.com.br',
             'password' => Hash::make('password'),
         ]);
 
