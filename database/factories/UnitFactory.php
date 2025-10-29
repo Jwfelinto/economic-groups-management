@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Faker\Providers\BrPersonProvider;
 use App\Models\Group;
 use App\Models\Unit;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -20,10 +21,13 @@ class UnitFactory extends Factory
      */
     public function definition(): array
     {
+        $faker = $this->faker;
+        $faker->addProvider(new BrPersonProvider($faker));
+
         return [
             'trade_name' => $this->faker->company,
             'legal_name' => $this->faker->company.' LTDA',
-            'cnpj' => str_replace(['.', '/', '-'], '', $this->faker->cnpj),
+            'cnpj' => $faker->cnpj(false),
         ];
     }
 }

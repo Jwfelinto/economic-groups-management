@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Faker\Providers\BrPersonProvider;
 use App\Models\Employee;
 use App\Models\Group;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -20,10 +21,13 @@ class EmployeeFactory extends Factory
      */
     public function definition(): array
     {
+        $faker = $this->faker;
+        $faker->addProvider(new BrPersonProvider($faker));
+
         return [
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
-            'cpf' => str_replace(['.', '/', '-'], '', $this->faker->cpf),
+            'cpf' => $faker->cpf(false),
         ];
     }
 }
