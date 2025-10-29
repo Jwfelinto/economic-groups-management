@@ -2,15 +2,16 @@
 
 namespace Database\Factories;
 
+use App\Models\Employee;
 use App\Models\Group;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends Factory<Group>
  */
-class GroupFactory extends Factory
+class EmployeeFactory extends Factory
 {
-    protected $model = Group::class;
+    protected $model = Employee::class;
 
     /**
      * Define the model's default state.
@@ -20,7 +21,9 @@ class GroupFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            'name' => $this->faker->name,
+            'email' => $this->faker->unique()->safeEmail,
+            'cpf' => str_replace(['.', '/', '-'], '', $this->faker->cpf),
         ];
     }
 }

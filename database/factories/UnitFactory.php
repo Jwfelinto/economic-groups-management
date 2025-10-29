@@ -3,14 +3,15 @@
 namespace Database\Factories;
 
 use App\Models\Group;
+use App\Models\Unit;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends Factory<Group>
  */
-class GroupFactory extends Factory
+class UnitFactory extends Factory
 {
-    protected $model = Group::class;
+    protected $model = Unit::class;
 
     /**
      * Define the model's default state.
@@ -20,7 +21,9 @@ class GroupFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            'trade_name' => $this->faker->company,
+            'legal_name' => $this->faker->company.' LTDA',
+            'cnpj' => str_replace(['.', '/', '-'], '', $this->faker->cnpj),
         ];
     }
 }

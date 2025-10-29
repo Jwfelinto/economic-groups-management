@@ -2,15 +2,15 @@
 
 namespace Database\Factories;
 
-use App\Models\Group;
+use App\Models\Brand;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Group>
+ * @extends Factory<Brand>
  */
-class GroupFactory extends Factory
+class BrandFactory extends Factory
 {
-    protected $model = Group::class;
+    protected $model = Brand::class;
 
     /**
      * Define the model's default state.
@@ -20,7 +20,7 @@ class GroupFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            'name' => $this->faker->companySuffix,
         ];
     }
 }
