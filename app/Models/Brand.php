@@ -15,8 +15,8 @@ class Brand extends Model implements Auditable
     use HasFactory;
 
     protected $fillable = [
+        'group_id',
         'name',
-        'group_id'
     ];
 
     public function group(): BelongsTo
