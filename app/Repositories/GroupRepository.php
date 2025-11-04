@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Group;
 use App\Repositories\Interfaces\GroupRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class GroupRepository implements GroupRepositoryInterface
@@ -24,7 +25,9 @@ class GroupRepository implements GroupRepositoryInterface
 
     public function showWithBrands(Group $group): ?Group
     {
-        return $group->with(['brands' => fn ($q) => $q->select('id', 'name', 'group_id')])->findOrFail($id);
+        $group->with(['brands' => fn ($q) => $q->select('id', 'name', 'group_id')]);
+
+        return $group;
     }
 
     public function save(Group $group): Group
@@ -37,5 +40,10 @@ class GroupRepository implements GroupRepositoryInterface
     public function delete(Group $group): void
     {
         $group->delete();
+    }
+
+    public function getForSelect(): Collection
+    {
+        return $this->group->orderBy('name')->get(['id', 'name']);
     }
 }

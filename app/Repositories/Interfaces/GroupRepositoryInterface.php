@@ -11,7 +11,6 @@ interface GroupRepositoryInterface
 
     public function showWithBrands(Group $group): ?Group;
 
-
     public function save(Group $group): Group;
 
     public function delete(Group $group): void;
