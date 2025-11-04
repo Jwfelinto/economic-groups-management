@@ -1,4 +1,3 @@
-{{-- Commit: feat(brands): add brand index blade with search and filter --}}
 <div class="p-6">
     <h1 class="text-2xl font-semibold mb-4">Bandeiras</h1>
 
