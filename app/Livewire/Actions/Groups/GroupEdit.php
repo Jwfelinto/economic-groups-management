@@ -11,20 +11,20 @@ use Livewire\Component;
 final class GroupEdit extends Component
 {
     public GroupForm $form;
-    public Group $group;
 
     public function mount(Group $group): void
     {
-        $this->group = $group;
-        $this->form->fill($group->toArray());
+        $this->form->fillFromModel($group);
     }
 
-    public function update(GroupService $service): void
+    public function update(GroupService $service, Group $group): void
     {
-        $validated = $this->form->validate();
-        $service->update($this->group, $validated);
+        $this->validate();
+
+        $service->update($group, $this->form->toArray());
 
         session()->flash('success', 'Grupo atualizado com sucesso!');
+
         redirect()->route('groups.index');
     }
 
