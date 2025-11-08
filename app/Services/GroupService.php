@@ -17,9 +17,9 @@ class GroupService
         return $this->repository->getAll($filters);
     }
 
-    public function show(int $id): Group
+    public function show(Group $group): Group
     {
-        return $this->repository->showWithBrands($id);
+        return $this->repository->showWithBrands($group);
     }
 
     public function create(array $groupData): Group
