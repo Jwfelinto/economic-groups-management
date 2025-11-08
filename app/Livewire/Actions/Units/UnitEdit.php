@@ -3,34 +3,36 @@
 namespace App\Livewire\Actions\Units;
 
 use App\Livewire\Forms\UnitForm;
+use App\Models\Unit;
 use App\Services\BrandService;
 use App\Services\UnitService;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
-final class UnitCreate extends Component
+final class UnitEdit extends Component
 {
     public UnitForm $form;
     public $brands;
 
-    public function mount(BrandService $brandService): void
+    public function mount(Unit $unit, BrandService $brandService): void
     {
+        $this->form->fillFromModel($unit);
         $this->brands = $brandService->getForSelect();
     }
 
-    public function save(UnitService $service): void
+    public function update(UnitService $service, Unit $unit): void
     {
         $this->validate();
 
-        $service->create($this->form->toArray());
+        $service->update($unit, $this->form->toArray());
 
-        session()->flash('success', 'Unidade criada com sucesso!');
+        session()->flash('success', 'Unidade atualizada com sucesso!');
 
         redirect()->route('units.index');
     }
 
     public function render(): View
     {
-        return view('livewire.units.create', ['brands' => $this->brands]);
+        return view('livewire.units.edit', ['brands' => $this->brands]);
     }
 }
