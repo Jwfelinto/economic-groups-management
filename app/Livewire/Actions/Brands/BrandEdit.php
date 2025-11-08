@@ -5,31 +5,34 @@ namespace App\Livewire\Actions\Brands;
 use App\Livewire\Forms\BrandForm;
 use App\Models\Brand;
 use App\Services\BrandService;
+use App\Services\GroupService;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 final class BrandEdit extends Component
 {
     public BrandForm $form;
-    public Brand $brand;
+    public $groups;
 
-    public function mount(Brand $brand): void
+    public function mount(Brand $brand, GroupService $groupService): void
     {
-        $this->brand = $brand;
-        $this->form->fill($brand->toArray());
+        $this->form->fillFromModel($brand);
+        $this->groups = $groupService->getForSelect();
     }
 
-    public function update(BrandService $service): void
+    public function update(BrandService $service, Brand $brand): void
     {
-        $validated = $this->form->validate();
-        $service->update($this->brand, $validated);
+        $this->validate();
+
+        $service->update($brand, $this->form->toArray());
 
         session()->flash('success', 'Bandeira atualizada com sucesso!');
+
         redirect()->route('brands.index');
     }
 
     public function render(): View
     {
-        return view('livewire.brands.edit');
+        return view('livewire.brands.edit', ['groups' => $this->groups]);
     }
 }
